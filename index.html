@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>MENU IN A MINUTE WEB</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ange Cafe — Menu In a Minute</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/a2d9b7c24d.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo-wrap">
+        <img class="logo" src="https://i.ibb.co/kZdR0tS/coffee-2246094.png" alt="Ange Cafe logo">
+        <h1>Ange Cafe<br><small>Menu</small></h1>
+      </div>
+
+      <nav class="nav">
+        <button data-tab="dessert" class="nav-btn active">
+          <!-- used images -->
+          <img src="https://i.ibb.co/W450Sb5H/toast-6254842-1.png" alt="dessert icon">
+          Dessert
+        </button>
+        <button data-tab="drinks" class="nav-btn">
+          <img src="https://i.ibb.co/spvLVj5X/beverage-1454490.png" alt="drinks icon">
+          Drinks
+        </button>
+        <button data-tab="about" class="nav-btn">
+          <img src="https://i.ibb.co/KpXR18W0/intimate-2170231.png" alt="about icon">
+          About
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <button id="adminBtn" class="admin-btn"><i class="fas fa-user-lock"></i> Admin</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="main-header">
+        <h2 id="page-title">Dessert</h2>
+        <div class="header-actions">
+          <div class="search">
+            <input id="search" placeholder="Search items..." />
+          </div>
+          <button id="cartBtn" class="cart-btn"><i class="fas fa-shopping-cart"></i> Cart <span id="cartCount">0</span></button>
+        </div>
+      </header>
+
+      <section id="content" class="content">
+      </section>
+
+      <section id="aboutSection" class="about hidden">
+        <h3>About Ange Cafe</h3>
+        <p>Ange Cafe is a campus-only café. Order desserts and drinks for pickup only. Open around 10:00 am — 5:30 pm.
+        This is a web design meant for research purposes only, we do not fully engage with the actual Cafe.</p>
+      </section>
+
+      <footer class="footer">
+        <small>© Ange Cafe — Menu In a Minute (Campus Only)</small>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Cart modal -->
+  <div id="cartModal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="close" data-close>&times;</button>
+      <h3>Your Cart</h3>
+      <div id="cartItems"></div>
+      <div class="cart-actions">
+        <div class="cart-total">Total: ₱<span id="cartTotal">0</span></div>
+        <button id="checkoutBtn" class="btn primary" disabled>Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout modal -->
+  <div id="checkoutModal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="close" data-close>&times;</button>
+      <h3>Checkout / Payment</h3>
+      <form id="checkoutForm">
+        <label>Name <input name="name" required></label>
+        <label>Student/Employee ID <input name="studentId" required></label>
+        <label>Contact <input name="contact" required></label>
+        <label>Pickup time <input type="time" name="pickup" required></label>
+        <label>Payment Method
+  <select name="paymentMethod" id="paymentMethod" required>
+    <option value="">-- Select --</option>
+    <option value="gcash">GCash (Online Payment)</option>
+    <option value="counter">Pay at the Counter</option>
+  </select>
+</label>
+
+<div id="gcashSection" class="hidden">
+  <label>Upload GCash Proof of Payment
+    <input type="file" id="proofUpload" accept="image/*">
+  </label>
+  <div class="preview" id="proofPreview"></div>
+  <small style="color:#666">
+    Send payment via GCash and upload the receipt.
+  </small>
+</div>
+
+        <button class="btn primary" type="submit">Place Order</button>
+      </form>
+    </div>
+  </div>
+  
+<!-- Success + Receipt + Survey Modal -->
+<div id="successModal" class="modal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="close" data-close>&times;</button>
+
+    <!-- SUCCESS VIEW -->
+    <div id="successView">
+      <h3>Order Placed Successfully!</h3>
+      <p>Your order has been received and is now pending.</p>
+
+      <div id="receiptBox" style="margin-top:15px;padding:12px;border:1px solid #ddd;border-radius:8px;background:#fafafa"></div>
+
+      <div style="margin-top:18px;display:flex;gap:10px">
+        <button id="openSurveyBtn" class="btn primary">Continue to Survey</button>
+      </div>
+    </div>
+
+    <!-- SURVEY VIEW (same modal, just hidden) -->
+    <div id="surveyView" class="hidden">
+      <h3>Quick Satisfaction Survey</h3>
+      <form id="surveyForm">
+        <label>Rating:
+          <select name="rating" required>
+            <option value="">--</option>
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+          </select>
+        </label>
+
+        <label>Comments
+          <textarea name="comment" rows="4"></textarea>
+        </label>
+
+        <div style="margin-top:12px">
+          <button class="btn primary" type="submit">Submit Survey</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Admin modal -->
+  <div id="adminModal" class="modal" aria-hidden="true">
+    <div class="modal-panel admin-panel">
+      <button class="close" data-close>&times;</button>
+
+      <div id="adminLoginBox">
+        <h3>Admin — Login</h3>
+        <form id="adminLoginForm">
+          <label>Password <input type="password" name="password" required></label>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+            <button class="btn primary" type="submit">Login</button>
+            <button id="adminCancel" class="btn" type="button">Cancel</button>
+            <div id="adminMsg" style="color:#b00;margin-left:8px"></div>
+          </div>
+        </form>
+      </div>
+
+      <div id="adminArea" class="hidden" aria-hidden="true">
+        <div class="admin-head">
+          <h4>Admin Dashboard</h4>
+          <button id="logoutAdmin" class="btn">Logout</button>
+        </div>
+
+        <section class="admin-section">
+          <h5>Products</h5>
+          <form id="productForm">
+            <input name="id" type="hidden">
+            <label>Category
+              <select name="category" required>
+                <option value="dessert">Dessert</option>
+                <option value="drinks">Drinks</option>
+              </select>
+            </label>
+            <label>Title <input name="title" required></label>
+            <label>Price <input name="price" type="number" required></label>
+            <label>Image URL <input name="image" placeholder="or leave empty to use default"></label>
+            <label>Description <input name="desc"></label>
+            <label>Available <input name="available" type="checkbox" checked></label>
+            <div class="admin-actions">
+              <button class="btn primary" type="submit">Save Product</button>
+              <button id="clearProduct" class="btn" type="button">Clear</button>
+            </div>
+          </form>
+
+          <div id="productList"></div>
+        </section>
+
+        <section class="admin-section">
+          <h5>Orders</h5>
+          <div id="ordersList"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+<!-- Admin Order View Modal -->
+<div id="viewOrderModal" class="modal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="close" data-close>&times;</button>
+    <h3>Order Details</h3>
+    <div id="viewOrderContent"></div>
+  </div>
+</div>
+
+  <!-- Confirm Complete Modal -->
+<div id="confirmCompleteModal" class="modal" aria-hidden="true">
+  <div class="modal-panel">
+    <button class="close" data-close>&times;</button>
+    <h3>Complete Order</h3>
+    <p>Mark this order as completed?</p>
+
+    <div style="margin-top:18px;display:flex;gap:10px">
+      <button id="confirmCompleteBtn" class="btn primary">Yes, Complete</button>
+      <button id="cancelCompleteBtn" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
